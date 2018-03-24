@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
-import logging
 from __future__ import unicode_literals
 
 from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
-
-    logging.warning('Watch out!')  # will print a message to the console
-    logging.info('I told you so')  # will not print anything
 
     dependencies = [
     ]
