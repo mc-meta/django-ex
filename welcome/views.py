@@ -15,13 +15,14 @@ root.setLevel(logging.DEBUG)
 rooterr.setLevel(logging.ERROR)
 
 ch = logging.StreamHandler(sys.stdout)
-cherr = logging.StreamHandler(sys.stdout) 
+cherr = logging.StreamHandler(sys.stderr) 
 ch.setLevel(logging.DEBUG)
-ch.setLevel(logging.ERROR)
+cherr.setLevel(logging.ERROR)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 cherr.setFormatter(formatter)
 root.addHandler(ch)
+rooterr.addHandler(cherr)
 
 # Create your views here.
 
@@ -29,7 +30,7 @@ def index(request):
     hostname = os.getenv('HOSTNAME', 'unknown')
     PageView.objects.create(hostname=hostname)
    
-    rooterr('Something went warn! (warn)')
+    rooterr.ERROR('Something went warn! (warn)')
 
     return render(request, 'welcome/index.html', {
         'hostname': hostname,
@@ -38,7 +39,7 @@ def index(request):
     })
 
 def health(request):
-    root.err('Something went wrong! (err)')
+    root.error('Something went wrong! (err)')
     root.info('Something went good! (info)')
-    root.warning('Something went warn! (warn)')
+    root.warn('Something went warn! (warn)')
     return HttpResponse(PageView.objects.count())
