@@ -30,7 +30,7 @@ def index(request):
     hostname = os.getenv('HOSTNAME', 'unknown')
     PageView.objects.create(hostname=hostname)
    
-    rooterr.err('Something went warn! (warn)')
+    rooterr('Something went warn! (warn)')
 
     return render(request, 'welcome/index.html', {
         'hostname': hostname,
