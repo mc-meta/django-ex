@@ -24,7 +24,10 @@ def index(request):
     hostname = os.getenv('HOSTNAME', 'unknown')
     PageView.objects.create(hostname=hostname)
    
-    root.err('Something went wrong! (err)')
+
+    root.error('Something went wrong! (err)')
+    root.info('Something went good! (info)')
+    root.warn('Something went warn! (warn)')
 
     return render(request, 'welcome/index.html', {
         'hostname': hostname,
@@ -33,7 +36,7 @@ def index(request):
     })
 
 def health(request):
-    root.err('Something went wrong! (err)')
+    root.error('Something went wrong! (err)')
     root.info('Something went good! (info)')
     root.warn('Something went warn! (warn)')
     return HttpResponse(PageView.objects.count())
