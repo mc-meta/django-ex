@@ -12,7 +12,7 @@ from .models import PageView
 root = logging.getLogger()
 rooterr = logging.getLogger()
 root.setLevel(logging.DEBUG)
-rooterr.setLevel(logging.ERROR)
+rooterr.setLevel(logging.ERR)
 
 ch = logging.StreamHandler(sys.stdout)
 cherr = logging.StreamHandler(sys.stderr) 
@@ -30,7 +30,7 @@ def index(request):
     hostname = os.getenv('HOSTNAME', 'unknown')
     PageView.objects.create(hostname=hostname)
    
-    rooterr.ERROR('Something went warn! (warn)')
+    rooterr.ERR('Something went warn! (warn)')
 
     return render(request, 'welcome/index.html', {
         'hostname': hostname,
@@ -39,7 +39,7 @@ def index(request):
     })
 
 def health(request):
-    root.error('Something went wrong! (err)')
+    root.err('Something went wrong! (err)')
     root.info('Something went good! (info)')
     root.warn('Something went warn! (warn)')
     return HttpResponse(PageView.objects.count())
