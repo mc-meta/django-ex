@@ -8,7 +8,14 @@ from . import database
 from .models import PageView
 
 # Get an instance of a logger
-logger = logging.getLogger(__name__)
+root = logging.getLogger()
+root.setLevel(logging.DEBUG)
+
+ch = logging.StreamHandler(sys.stdout)
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+root.addHandler(ch)
 
 # Create your views here.
 
@@ -17,9 +24,9 @@ def index(request):
     PageView.objects.create(hostname=hostname)
    
 
-    logger.error('Something went wrong! (err)')
-    logger.info('Something went good! (info)')
-    logger.warn('Something went warn! (warn)')
+    root.error('Something went wrong! (err)')
+    root.info('Something went good! (info)')
+    root.warn('Something went warn! (warn)')
 
     return render(request, 'welcome/index.html', {
         'hostname': hostname,
@@ -28,7 +35,7 @@ def index(request):
     })
 
 def health(request):
-    logger.error('Something went wrong! (err)')
-    logger.info('Something went good! (info)')
-    logger.warn('Something went warn! (warn)')
+    root.error('Something went wrong! (err)')
+    root.info('Something went good! (info)')
+    root.warn('Something went warn! (warn)')
     return HttpResponse(PageView.objects.count())
