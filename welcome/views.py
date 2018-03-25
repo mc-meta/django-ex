@@ -10,19 +10,13 @@ from .models import PageView
 
 # Get an instance of a logger
 root = logging.getLogger()
-rooterr = logging.getLogger()
 root.setLevel(logging.DEBUG)
-rooterr.setLevel(logging.ERROR)
 
-ch = logging.StreamHandler(sys.stdout)
-cherr = logging.StreamHandler(sys.stderr) 
+ch = logging.StreamHandler(sys.stderr)
 ch.setLevel(logging.DEBUG)
-cherr.setLevel(logging.ERROR)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
-cherr.setFormatter(formatter)
 root.addHandler(ch)
-rooterr.addHandler(cherr)
 
 # Create your views here.
 
@@ -30,7 +24,7 @@ def index(request):
     hostname = os.getenv('HOSTNAME', 'unknown')
     PageView.objects.create(hostname=hostname)
    
-    rooterr('Something went warn! (warn)')
+    root.err('Something went wrong! (err)')
 
     return render(request, 'welcome/index.html', {
         'hostname': hostname,
