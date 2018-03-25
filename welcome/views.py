@@ -12,7 +12,7 @@ from .models import PageView
 root = logging.getLogger()
 rooterr = logging.getLogger()
 root.setLevel(logging.DEBUG)
-rooterr.setLevel(logging.ERR)
+rooterr.setLevel(logging.ERROR)
 
 ch = logging.StreamHandler(sys.stdout)
 cherr = logging.StreamHandler(sys.stderr) 
